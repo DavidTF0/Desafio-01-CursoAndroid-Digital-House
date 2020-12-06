@@ -13,7 +13,7 @@ class DigitalHouseManager {
     }
 
     fun excluirCurso(codigoCurso: Int) {
-        println("Curso de codigo: $codigoCurso, sera excluido")
+        println("Curso de codigo: $codigoCurso e nome ${listaDeCursos[codigoCurso]?.nome}, sera excluido\n")
         listaDeCursos.remove(codigoCurso)
     }
 
@@ -31,6 +31,7 @@ class DigitalHouseManager {
     }
 
     fun excluirProfessor(codigoProfessor: Int) {
+        println("Professor de codigo: $codigoProfessor e nome ${listaDeProfessores[codigoProfessor]?.nome} ${listaDeProfessores[codigoProfessor]?.sobrenome}, sera excluido\n")
         listaDeProfessores.remove(codigoProfessor)
     }
 
@@ -48,78 +49,79 @@ class DigitalHouseManager {
                 curso.adicionarUmAluno(aluno)
                 if (curso.adicionarUmAluno(aluno)) {
                     adicionaMatriculaALista(codigoCurso, codigoAluno, data)
+                    println("Aluno ${listaDeAlunos[codigoAluno]?.nome} ${listaDeAlunos[codigoAluno]?.sobrenome}\nadicionado ao curso ${listaDeCursos[codigoCurso]?.nome}")
                 } else {
-                    println("não foi possivel realizar a Matricula por não haver vagas no curso: ${listaDeCursos[codigoCurso]?.nome}")
+                    println("não foi possivel realizar a Matricula\npor não haver vagas no curso: ${listaDeCursos[codigoCurso]?.nome}\n")
                 }
             }
         }
     }
 
-    private fun adicionaMatriculaALista(codigoCurso: Int, codigoAluno: Int, data: String) {
+    fun adicionaMatriculaALista(codigoCurso: Int, codigoAluno: Int, data: String) {
       if (listaDeAlunos[codigoAluno] != null && listaDeCursos[codigoCurso] != null) {
             val matricula = Matricula(data, aluno = listaDeAlunos[codigoAluno],
                     curso = listaDeCursos[codigoCurso])
             listaDeMatriculas.add(matricula)
-            println("Matricula do aluno ${listaDeAlunos[codigoAluno]} realizada no curso: ${listaDeCursos[codigoCurso]?.nome} ")
+            println("Matricula do aluno ${listaDeAlunos[codigoAluno]} realizada no curso: ${listaDeCursos[codigoCurso]?.nome}\n")
         } else {
-            println("O aluno com o codigo: $codigoAluno, não existe ou não esta cadastrado\nO curso de codigo: $codigoCurso não existe ou não esta cadastrado")
+            println("O aluno com o codigo: $codigoAluno, não existe ou não esta cadastrado\nO curso de codigo: $codigoCurso não existe ou não esta cadastrado\n")
         }
     }
 
     private fun buscaCurso(codigoCurso: Int): Boolean {
         if (listaDeCursos[codigoCurso]?.codigoCurso?.equals(codigoCurso) == true) {
-            println("Curso encontrado: ${listaDeCursos[codigoCurso]}")
+            println("Curso encontrado: ${listaDeCursos[codigoCurso]}\n")
             return true
         } else {
-            println("Curso de codigo: $codigoCurso, não encontrado ou não Cadastrado")
+            println("Curso de codigo: $codigoCurso, não encontrado ou não Cadastrado\n")
             return false
         }
     }
 
     private fun buscaAluno(codigoAluno: Int): Boolean {
         if (listaDeAlunos[codigoAluno]?.codigoAluno?.equals(codigoAluno) == true) {
-            println("Aluno encontrado: ${listaDeAlunos[codigoAluno]}")
+            println("Aluno encontrado: ${listaDeAlunos[codigoAluno]}\n")
             return true
         } else {
-            println("Aluno de codigo: $codigoAluno, não encontrado ou não Cadastrado")
+            println("Aluno de codigo: $codigoAluno, não encontrado ou não Cadastrado\n")
             return false
         }
     }
 
     fun alocarProfessor(codigoCurso: Int, codigoProfessorTitular: Int, codigoProfessorAdjunto: Int) {
-        if(buscaProfessorTitular(codigoProfessorTitular) && buscaProfessorAdjunto(codigoProfessorAdjunto) && buscaCurso(codigoCurso)){
+        if(buscaCurso(codigoCurso) && buscaProfessorTitular(codigoProfessorTitular) && buscaProfessorAdjunto(codigoProfessorAdjunto)){
+            val curso = listaDeCursos[codigoCurso]
             val professorTitular = listaDeProfessores[codigoProfessorTitular]
             val professorAdjunto = listaDeProfessores[codigoProfessorAdjunto]
-            val curso = listaDeCursos[codigoCurso]
 
             curso?.professorTitular = professorTitular as ProfessorTitular
             curso?.professorAdjunto = professorAdjunto as ProfessorAdjunto
 
-            println("Professores alocados no curso: ${listaDeCursos[codigoCurso]?.nome}")
+            println("Professores alocados no curso: ${listaDeCursos[codigoCurso]?.nome}\n")
         }
     }
 
-    fun buscaProfessorTitular(codigoProfessorTitular: Int): Boolean {
+    private fun buscaProfessorTitular(codigoProfessorTitular: Int): Boolean {
         if (listaDeProfessores[codigoProfessorTitular]?.codigoProfessor?.equals(codigoProfessorTitular) == true) {
             val professorTitular = listaDeProfessores[codigoProfessorTitular]
             if(professorTitular is ProfessorTitular){
-                println("Professor Titular encontrado: ${listaDeProfessores[codigoProfessorTitular]}")
+                println("Professor Titular encontrado: ${listaDeProfessores[codigoProfessorTitular]}\n")
                 return true
             }
         }
-        println("Codigo de professor titular: $codigoProfessorTitular, não existe ou não esta cadastrado")
+        println("Codigo de professor titular: $codigoProfessorTitular, não existe ou não esta cadastrado\n")
         return false
     }
 
-    fun buscaProfessorAdjunto(codigoProfessorAdjunto: Int):Boolean {
+    private fun buscaProfessorAdjunto(codigoProfessorAdjunto: Int):Boolean {
         if (listaDeProfessores[codigoProfessorAdjunto]?.codigoProfessor?.equals(codigoProfessorAdjunto) == true) {
             val professorAdjunto = listaDeProfessores[codigoProfessorAdjunto]
             if(professorAdjunto is ProfessorAdjunto) {
-                println("Professor Adjunto encontrado: ${listaDeProfessores[codigoProfessorAdjunto]}")
+                println("Professor Adjunto encontrado: ${listaDeProfessores[codigoProfessorAdjunto]}\n")
                 return true
             }
         }
-        println("Codigo de professor adjunto: $codigoProfessorAdjunto, não existe ou não esta cadastrado")
+        println("Codigo de professor adjunto: $codigoProfessorAdjunto, não existe ou não esta cadastrado\n")
         return false
     }
 }
