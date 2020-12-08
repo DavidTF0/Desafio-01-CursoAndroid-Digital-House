@@ -15,10 +15,22 @@ data class Curso(val nome: String, val codigoCurso: Int, var professorTitular: P
     }
 
     fun excluirAluno(umAluno: Aluno){
+        println("$umAluno sera excluido do curso $nome\n")
         listaDeAlunosDoCurso.remove(umAluno)
     }
 
     override fun toString(): String {
         return "Curso $nome com codigo de curso: $codigoCurso com professorTitular $professorTitular e professorAdjunto $professorAdjunto \ntendo uma sala com a quantidade maxima de Alunos de $quantidadeMaximaDeAlunos"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Curso
+
+        if (codigoCurso != other.codigoCurso) return false
+
+        return true
     }
 }

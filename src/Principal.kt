@@ -24,6 +24,8 @@ fun main(){
 
     digitalHouseManager.matricularAluno("Juliana", "Bernardes", 30003)
 
+    digitalHouseManager.matricularAluno("Aluno Teste exclusão", "", 30004)
+
     digitalHouseManager.alocarProfessor(20001,10002,10003)
 
     digitalHouseManager.alocarProfessor(20002,10001,10004)
@@ -31,6 +33,8 @@ fun main(){
     digitalHouseManager.matricularAlunoNoCurso(30001,20001,"06/12/2020")
 
     digitalHouseManager.matricularAlunoNoCurso(30002,20001,"06/12/2020")
+
+    digitalHouseManager.matricularAlunoNoCurso(30004,20001,"06/12/2020")
 
     digitalHouseManager.matricularAlunoNoCurso(30001,20002,"06/12/2020")
 
@@ -41,6 +45,8 @@ fun main(){
     digitalHouseManager.excluirCurso(20003)
 
     digitalHouseManager.excluirProfessor(10005)
+
+    digitalHouseManager.removeAlunoDoCurso(20001, 30004)
 
 
 
